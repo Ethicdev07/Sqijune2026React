@@ -20,7 +20,7 @@ import ModeContext from "./context/ModeContext";
 import Landingpage from "./pages/Landingpage";
 
 const App = () => {
-  // const [theme, setTheme] = useState("light");
+  ;
 
   const [mode, setMode] = useState('light')
 
@@ -28,11 +28,7 @@ const App = () => {
     setMode(mode === 'light' ? 'dark' : 'light')
   }
 
-  // const toggleTheme = () => {
-  //    alert('hello')
-  //   setTheme(theme === "light" ? "dark" : "light");
-   
-  // };
+
 
   const user = {
     name: "Damilola",

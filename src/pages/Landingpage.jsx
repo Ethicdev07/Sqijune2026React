@@ -1,6 +1,7 @@
 import React from 'react'
 import Nav from '../components/Nav';
 import Hero from '../components/Hero';
+import List from "../hooks/List"
 // import Home from '../components/Home';
 
 const Landingpage = () => {
@@ -9,6 +10,7 @@ const Landingpage = () => {
         {/* <Nav/> */}
         <Hero/>
         {/* <Home/> */}
+        <List/>
     </div>
   )
 }

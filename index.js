@@ -30,3 +30,6 @@ console.log(newCount);
 console.log(count);
 
 
+
+console.log('i need money');
+
