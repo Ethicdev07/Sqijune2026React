@@ -5,27 +5,27 @@ import { toast } from "react-toastify";
 
 const authContext = createContext();
 
-const apiUrl = import.meta.env.VITE_API_URL;
-
 export const useAuth = () => {
   return useContext(authContext);
 };
 
-const [loading, setLoading] = useState(false);
-const [token, setToken] = useState(null);
-const [user, setUser] = useState(null);
-
 const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
+  const apiUrl = import.meta.env.VITE_API_URL;
   //states
+
+  const [loading, setLoading] = useState(false);
+  const [token, setToken] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     setToken(localStorage.getItem("token"));
     setUser(JSON.parse(localStorage.getItem("user")));
   });
-};
 
-const signUp = async () => {
+
+
+  const signUp = async () => {
   setLoading(true);
 
   axios
@@ -51,6 +51,6 @@ const signUp = async () => {
         setLoading(false)
     })
 };
-
+};
 
 export default authContext;
