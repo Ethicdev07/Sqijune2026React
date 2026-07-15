@@ -7,10 +7,9 @@ import List from "../hooks/List"
 const Landingpage = () => {
   return (
     <div style={{padding:"20px"}}>
-        {/* <Nav/> */}
+        
         <Hero/>
-        {/* <Home/> */}
-        <List/>
+      
     </div>
   )
 }
