@@ -34,7 +34,7 @@ const Nav = () => {
           <div >
             <Link to={"/profile"} style={{display:"flex", alignItems:"center", gap:"1em"}}>
               <img
-                src={user?.image}
+                src={user?.profile_image}
                 alt="Profile"
                 className="w-8 h-8 rounded-full"
               />

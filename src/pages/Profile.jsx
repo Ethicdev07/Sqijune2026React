@@ -6,7 +6,7 @@ import { useAuth } from "../contexts/AuthContext";
 import AppButton from "../components/AppButton";
 
 const Profile = () => {
-  const { user, loading, updateUserProfile } = useAuth();
+  const { user, loading, updateUserProfile, updateProfileDetails } = useAuth();
 
   const fileInputRef = useRef(null);
 
@@ -16,7 +16,7 @@ const Profile = () => {
     initialValues: {
       firstname: user?.firstName || "",
       lastname: user?.lastName || "",
-      profile_image: null,
+      profileImage: null, // FIX: Changed from profile_image to profileImage
     },
 
     validationSchema: Yup.object({
@@ -25,7 +25,16 @@ const Profile = () => {
     }),
 
     onSubmit: async (values) => {
-      await updateUserProfile(values);
+      await updateProfileDetails(user._id, {
+        firstname: values.firstname,
+        lastname: values.lastname
+      });
+      
+      // FIX: Checked against profileImage instead of profile_image
+      if (values.profileImage){
+        await updateUserProfile(values);
+        formik.setFieldValue("profileImage", null); // FIX: Cleared profileImage inside state
+      }
     },
   });
 
@@ -78,7 +87,7 @@ const Profile = () => {
               accept="image/*"
               onChange={(e) =>
                 formik.setFieldValue(
-                  "profileImage",
+                  "profileImage", // Keeps everything cleanly synchronized with camelCase
                   e.currentTarget.files[0]
                 )
               }

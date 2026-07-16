@@ -9,7 +9,7 @@ export const useAuth = () => {
   return useContext(AuthContext);
 };
 
-const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const apiUrl = import.meta.env.VITE_API_URL;
   //states
@@ -87,60 +87,97 @@ const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-  localStorage.removeItem("token");
-  localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
 
-  setToken(null);
-  setUser(null);
+    setToken(null);
+    setUser(null);
 
-  navigate("/login");
-};
+    navigate("/login");
+  };
 
+  const updateProfileDetails = async (userId, profileData) => {
+    setLoading(true);
 
-const updateUserProfile = async (profileData) => {
-  setLoading(true);
+    try {
+      const res = await axios.patch(
+        `${apiUrl}/users/profile`,
+        profileData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json", // FIX: Changed from multipart/form-data to JSON
+          },
+        }
+      );
 
-  try {
-    const formData = new FormData();
+      // Updated user returned from the backend
+      const updatedUser = res.data.data.user;
 
-    formData.append("firstname", profileData.firstname);
-    formData.append("lastname", profileData.lastname);
+      setUser(updatedUser);
 
-    if (profileData.profileImage) {
-      formData.append("image", profileData.profile_image);
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+
+      toast.success("Profile updated successfully!");
+
+      return updatedUser;
+    } catch (err) {
+      console.error(err);
+
+      err?.response
+        ? toast.error(err.response.data.message)
+        : toast.error("Failed to update profile.");
+    } finally {
+      setLoading(false);
     }
+  };
 
-    const res = await axios.patch(
-      `${apiUrl}/users/profile`,
-      formData,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
-        },
+  const updateUserProfile = async (profileData) => {
+    setLoading(true);
+
+    try {
+      const formData = new FormData();
+
+      formData.append("firstname", profileData.firstname);
+      formData.append("lastname", profileData.lastname);
+
+      if (profileData.profileImage) {
+        // FIX: Appended profileImage (camelCase) instead of the non-existent profile_image
+        formData.append("image", profileData.profileImage);
       }
-    );
 
-    // Updated user returned from the backend
-    const updatedUser = res.data.data.user;
+      const res = await axios.patch(
+        `${apiUrl}/users/update-profile-picture`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
-    setUser(updatedUser);
+      // Updated user returned from the backend
+      const updatedUser = res.data.data.user;
 
-    localStorage.setItem("user", JSON.stringify(updatedUser));
+      setUser(updatedUser);
 
-    toast.success("Profile updated successfully!");
+      localStorage.setItem("user", JSON.stringify(updatedUser));
 
-    return updatedUser;
-  } catch (err) {
-    console.error(err);
+      toast.success("Profile updated successfully!");
 
-    err?.response
-      ? toast.error(err.response.data.message)
-      : toast.error("Failed to update profile.");
-  } finally {
-    setLoading(false);
-  }
-};
+      return updatedUser;
+    } catch (err) {
+      console.error(err);
+
+      err?.response
+        ? toast.error(err.response.data.message)
+        : toast.error("Failed to update profile.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const values = {
     loading,
     token,
@@ -148,7 +185,8 @@ const updateUserProfile = async (profileData) => {
     signup,
     login,
     logout,
-    updateUserProfile
+    updateUserProfile,
+    updateProfileDetails
   };
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;

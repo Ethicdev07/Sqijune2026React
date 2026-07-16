@@ -12,14 +12,16 @@ import Landingpage from "./pages/Landingpage";
 import AuthProvider from "./contexts/AuthContext";
 import Profile from "./pages/Profile";
 
+// 1. Import Toastify component and CSS
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const App = () => {
   return (
     <>
       <Router>
-       
-
         <AuthProvider>
-           <Nav />
+          <Nav />
           <Routes>
             <Route path="/" element={<Landingpage />} />
             <Route path="/login" element={<Login />} />
@@ -27,6 +29,20 @@ const App = () => {
             <Route path="/create-product" element={<CreateProducts />} />
             <Route path="/profile" element={<Profile/>}/>
           </Routes>
+
+          {/* 2. Place ToastContainer inside your provider so it is globally active */}
+          <ToastContainer 
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+          />
         </AuthProvider>
       </Router>
     </>
