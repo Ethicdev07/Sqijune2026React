@@ -106,7 +106,7 @@ export const AuthProvider = ({ children }) => {
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json", // FIX: Changed from multipart/form-data to JSON
+            "Content-Type": "application/json", 
           },
         }
       );
@@ -142,7 +142,6 @@ export const AuthProvider = ({ children }) => {
       formData.append("lastname", profileData.lastname);
 
       if (profileData.profileImage) {
-        // FIX: Appended profileImage (camelCase) instead of the non-existent profile_image
         formData.append("image", profileData.profileImage);
       }
 
