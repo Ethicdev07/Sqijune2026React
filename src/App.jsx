@@ -15,14 +15,18 @@ import Profile from "./pages/Profile";
 // 1. Import Toastify component and CSS
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ProductProvider from "./contexts/ProductContext";
+import Products from "./pages/Products";
 
 const App = () => {
   return (
     <>
       <Router>
         <AuthProvider>
+          <ProductProvider>
           <Nav />
           <Routes>
+            <Route path="/product" element={<Products/>}/>
             <Route path="/" element={<Landingpage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
@@ -43,6 +47,7 @@ const App = () => {
             pauseOnHover
             theme="colored"
           />
+          </ProductProvider>
         </AuthProvider>
       </Router>
     </>
