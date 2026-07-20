@@ -45,7 +45,7 @@ const Signup = () => {
       </div>
       <label htmlFor="email" className="block text-xl text-black font-semibold">Email:</label>
       <input
-       className="border-2 border-blue-500 rounded focus:outline-none w-[100%] p-2 mb-2"
+       className="border-2 border-blue-500 rounded focus:outline-none w-full p-2 mb-2"
         type="email"
         name="email"
         value={formik.values.email}
@@ -58,7 +58,7 @@ const Signup = () => {
       )}
        <label htmlFor="firstname" className="block text-xl text-black font-semibold">Firstname:</label>
       <input
-       className="border-2 border-blue-500 rounded focus:outline-none w-[100%] p-2 mt-2"
+       className="border-2 border-blue-500 rounded focus:outline-none w-full p-2 mt-2"
         type="text"
         name="firstname"
         value={formik.values.firstname}
@@ -71,7 +71,7 @@ const Signup = () => {
       )}
        <label htmlFor="lastname" className="block text-xl text-black font-semibold">Lastname:</label>
       <input
-       className="border-2 border-blue-500 rounded focus:outline-none w-[100%] p-2 mt-2"
+       className="border-2 border-blue-500 rounded focus:outline-none w-full p-2 mt-2"
         type="text"
         name="lastname"
         value={formik.values.lastname}
@@ -90,7 +90,7 @@ const Signup = () => {
           Password
         </label>
         <input
-          className="border-2 border-blue-500 rounded-lg focus:outline-none w-[100%] p-2 mt-2"
+          className="border-2 border-blue-500 rounded-lg focus:outline-none w-full p-2 mt-2"
           type={`${showPassword ? "text" : "password"}`}
           placeholder="password"
           name="password"
@@ -99,7 +99,7 @@ const Signup = () => {
           onBlur={formik.handleBlur}
         />
         {/* Password toggle temporarily removed */}
-        <span className="absolute top-[32px] right-[60px] cursor-pointer"
+        <span className="absolute top-8 right-15 cursor-pointer"
         onClick={()=> setShowPassword(!showPassword)}
         >
             {showPassword ? (
@@ -113,7 +113,7 @@ const Signup = () => {
         )}
       </div>
       <div className="p-5 flex justify-center">
-        <div className="w-[200px]">
+        <div className="w-50">
           <AppButton
             text={"Signup"}
             bgColor={"blue"}
