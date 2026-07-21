@@ -29,7 +29,7 @@ const productProvider = ({ children }) => {
     axios
       .get(`${apiUrl}/product`, {
         headers: {
-          Authorization: `Bearrer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
@@ -55,13 +55,13 @@ const productProvider = ({ children }) => {
     requestData.append("title", product.title);
     requestData.append("price", product.price);
     requestData.append("description", product.description);
+    requestData.append("stock", product.stock || 10);
     requestData.append("image", product.image);
     console.log(requestData);
     setLoading(true);
     axios
       .post(`${apiUrl}/product`, requestData, {
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       })

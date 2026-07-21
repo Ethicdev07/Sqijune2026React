@@ -7,6 +7,7 @@ const CreateProduct = () => {
     initialValues: {
       title: "",
       price: "",
+       stock: "",
       description: "",
       image: "",
     },
@@ -63,6 +64,26 @@ const CreateProduct = () => {
             <p className="text-red-500">{formik.errors.price}</p>
           )}
         </div>
+
+
+          <div className="p-5">
+          <label className="block text-xl text-black font-semibold">
+            Stock:
+            <input
+              className="border-2 border-blue-500 rounded-lg focus:outline-none w-full p-2 mt-2"
+              type="number"
+              name="stock"
+              value={formik.values.stock}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+          </label>
+          {formik.touched.stock && formik.errors.stock && (
+            <p className="text-red-500">{formik.errors.stock}</p>
+          )}
+        </div>
+
+
         <div className="p-5">
           <label className="block text-xl text-black font-semibold">
             Description:

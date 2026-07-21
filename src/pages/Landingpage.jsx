@@ -9,7 +9,7 @@ const Landingpage = () => {
   return (
     <div style={{padding:"20px"}}>
         
-        <h1 className="text-red-500">Hello</h1>
+  
         <Hero/>
 
         <Products/>

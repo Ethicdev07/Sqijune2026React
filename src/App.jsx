@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 
 import Landingpage from "./pages/Landingpage";
+import Cart from "./pages/Cart";
 import AuthProvider from "./contexts/AuthContext";
 import Profile from "./pages/Profile";
 
@@ -17,11 +18,13 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ProductProvider from "./contexts/ProductContext";
 import Products from "./pages/Products";
+import { CartProvider } from "./contexts/CartContext";
 
 const App = () => {
   return (
     <>
       <Router>
+        <CartProvider>
         <AuthProvider>
           <ProductProvider>
           <Nav />
@@ -29,6 +32,7 @@ const App = () => {
             <Route path="/product" element={<Products/>}/>
             <Route path="/" element={<Landingpage />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/cart" element={<Cart />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/create-product" element={<CreateProducts />} />
             <Route path="/profile" element={<Profile/>}/>
@@ -49,6 +53,7 @@ const App = () => {
           />
           </ProductProvider>
         </AuthProvider>
+        </CartProvider>
       </Router>
     </>
   );
